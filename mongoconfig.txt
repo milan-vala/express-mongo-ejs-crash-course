@@ -1,0 +1,7 @@
+db access
+user = milan
+password = milan123
+
+mongo login
+milan.vala94@gmail.com
+31stoctober

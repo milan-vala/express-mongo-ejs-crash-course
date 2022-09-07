@@ -1,0 +1,22 @@
+<html lang="en">
+  <%- include("./common/head.ejs") %>
+  <body>
+    <% const name = "milan"; %>
+    <p><%= name %></p>
+
+    <%- include("./common/nav.ejs") %>
+
+    <div class="blogs content">
+      <h2>All Blogs</h2>
+      <% if (blogs.length > 0) { %>
+        <% blogs.forEach(blog => { %>
+          <a class="single" href="/blogs/<%= blog._id %>">
+            <h2 class="title"><%= blog.title %></h2>
+            <p class="snippet"><%= blog.snippet %></p>
+          </a>
+        <% }) %>
+      <% } %>
+    </div>
+    <%- include("./common/footer.ejs") %>
+  </body>
+</html>
