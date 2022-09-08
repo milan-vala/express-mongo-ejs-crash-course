@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const Blog = require("./models/blog");
+const blogRoutes = require("./routes/blogRoutes");
 
 // express app
 const app = express();
@@ -83,53 +84,7 @@ app.get("/", (req, res) => {
   res.redirect("/blogs");
 });
 
-app.get("/blogs/create", (req, res) => {
-  res.render("create", { title: "Create" });
-});
-
-app.get("/blogs", async (req, res) => {
-  try {
-    let blogs = await Blog.find().sort({ createdAt: -1 });
-    res.render("index", { title: "All blogs", blogs });
-  } catch (error) {
-    console.log("error while fetching blogs: ", error);
-  }
-});
-
-app.get("/blogs/:id", async (req, res) => {
-  try {
-    let id = req.params.id;
-    let blog = await Blog.findById(id);
-    // res.render("index", { title: blog.title, blogs: [blog] });
-    res.render("details", { title: "Blog Details", blog });
-  } catch (error) {
-    console.log("error while getting blog: ", error);
-  }
-});
-
-app.delete("/blogs/:id", async (req, res) => {
-  try {
-    let id = req.params.id;
-    let result = await Blog.findByIdAndDelete(id);
-    console.log("result of delete ==>", result);
-    res.json({ redirect: "/blogs" });
-  } catch (error) {
-    console.log("error while deleting blogs: ", error);
-  }
-});
-
-app.post("/blogs", async (req, res) => {
-  try {
-    let { title, snippet, body } = req.body;
-    // let blog = new Blog({ title, snippet, body });
-    // can do like this alos
-    let blog = new Blog(req.body);
-    await blog.save();
-    res.redirect("/blogs");
-  } catch (error) {
-    console.log("error while saving data: ", error);
-  }
-});
+app.use(blogRoutes);
 
 app.get("/about", (req, res) => {
   res.render("about", { title: "About" });

@@ -1,15 +1,17 @@
 <html lang="en">
-  <%- include("./common/head.ejs") %>
+  <%- include("../common/head.ejs") %>
   <body>
-    <%- include("./common/nav.ejs") %>
+    <%- include("../common/nav.ejs") %>
     <div class="details content">
       <h2><%= blog.title %></h2>
       <div class="content">
         <p><%= blog.body %></p>
       </div>
-      <a class="delete" data-doc="<%= blog._id %>">delete</a>
+      <a class="delete" data-doc="<%= blog._id %>">
+        <img src="/trashcan.svg" alt="delete icon">
+      </a>
     </div>
-    <%- include("./common/footer.ejs") %>
+    <%- include("../common/footer.ejs") %>
 
     <script>
       const trashcan = document.querySelector('a.delete');
